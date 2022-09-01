@@ -4,15 +4,30 @@ addBotao.addEventListener('click', (event) => {
     event.preventDefault()
     let form = document.querySelector("#form-adiciona")
 
+    //cria um objeto paciente
     let paciente = obtemPaciente(form)
-
+    console.log(paciente.altura, "oi")
+    //monta a tr
     let novaTR = montaTr(paciente)
 
+    //valida a tr
+
+    let erros = validaPaciente(paciente)
+
+    if (erros.length > 0) {
+        exibeErro(erros)
+        return
+    }
+
+    //Adiciona Tr a tabela
     let tableTB = document.querySelector("#tabela-pacientes")
 
     tableTB.appendChild(novaTR)
 
-    form.reset();
+    let ul = document.querySelector("#erros-lista")
+    ul.innerHTML = ""
+
+    form.reset()
 })
 
 function obtemPaciente(form) {
@@ -32,17 +47,11 @@ function montaTr(paciente) {
     let novaTR = document.createElement("tr")
     novaTR.classList.add("paciente")
 
-    let nomeTD = montaTd(paciente.nome, "info-nome")
-    let pesoTD = montaTd(paciente.peso, "info-peso")
-    let alturaTD = montaTd(paciente.altura, "info-altura")
-    let gorduraTD = montaTd(paciente.gordura, "info-gordura")
-    let imcTD = montaTd(paciente.imc, "info-imc")
-
-    novaTR.appendChild(nomeTD)
-    novaTR.appendChild(pesoTD)
-    novaTR.appendChild(alturaTD)
-    novaTR.appendChild(gorduraTD)
-    novaTR.appendChild(imcTD)
+    novaTR.appendChild(montaTd(paciente.nome, "info-nome"))
+    novaTR.appendChild(montaTd(paciente.peso, "info-peso"))
+    novaTR.appendChild(montaTd(paciente.altura, "info-altura"))
+    novaTR.appendChild(montaTd(paciente.gordura, "info-gordura"))
+    novaTR.appendChild(montaTd(paciente.imc, "info-imc"))
 
     return novaTR
 }
@@ -52,4 +61,44 @@ function montaTd(dado, classe) {
     td.classList.add(classe)
     td.textContent = dado
     return td
+}
+
+function validaPaciente(paciente) {
+    let erros = []
+
+    if (!validaAltura(paciente.altura)) {
+        erros.push("Altura inválida")
+    }
+    if (!validaPeso(paciente.peso)) {
+        erros.push("Peso inválido")
+    }
+
+    if (paciente.nome.length == 0) {
+        erros.push("Nome em branco!")
+    }
+    if (paciente.peso.length == 0) {
+        erros.push("Nome em branco!")
+    }
+    if (paciente.altura.length == 0) {
+        erros.push("Nome em branco!")
+    }
+    if (paciente.gordura.length == 0) {
+        erros.push("Nome em branco!")
+    }
+    return erros
+}
+
+function exibeErro(erros) {
+    let ul = document.querySelector("#erros-lista")
+    ul.innerHTML = ""
+    erros.forEach(function (erro) {
+        ul.appendChild(criaLiDeErros(erro))
+    })
+}
+
+function criaLiDeErros(erro) {
+    let li = document.createElement("li")
+    li.textContent = erro
+    li.classList.add("erroLi")
+    return li
 }
