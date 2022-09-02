@@ -144,3 +144,19 @@ button:disabled {
 	color: red;
 	list-style-type: none;
 }
+
+.fadeOut {
+	opacity: 0;
+	transition: .5s;
+}
+
+#filtrar-tabela {
+	width: 300px;
+	padding: 10px 5px;
+	border-radius: 5px;
+	margin-bottom: 30px;
+}
+
+.invisivel {
+	display: none;
+}
