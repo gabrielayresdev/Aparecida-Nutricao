@@ -6,29 +6,35 @@ addBotao.addEventListener('click', (event) => {
 
     //cria um objeto paciente
     let paciente = obtemPaciente(form)
-    console.log(paciente.altura, "oi")
-    //monta a tr
-    let novaTR = montaTr(paciente)
 
     //valida a tr
 
     let erros = validaPaciente(paciente)
-
     if (erros.length > 0) {
         exibeErro(erros)
         return
     }
 
-    //Adiciona Tr a tabela
-    let tableTB = document.querySelector("#tabela-pacientes")
 
-    tableTB.appendChild(novaTR)
+    adicionaPacienteNaTabela(paciente)
 
     let ul = document.querySelector("#erros-lista")
     ul.innerHTML = ""
 
     form.reset()
 })
+
+function adicionaPacienteNaTabela(paciente) {
+    //monta a tr
+    let novaTR = montaTr(paciente)
+
+
+
+    //Adiciona Tr a tabela
+    let tableTB = document.querySelector("#tabela-pacientes")
+
+    tableTB.appendChild(novaTR)
+}
 
 function obtemPaciente(form) {
 
