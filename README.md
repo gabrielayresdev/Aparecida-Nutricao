@@ -1,3 +1,3 @@
 # Aparecida-Nutricao
 
-aparecida-saude-e-nutricao.netlify.app
+https://aparecida-saude-e-nutricao.netlify.app
